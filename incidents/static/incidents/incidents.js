@@ -38,11 +38,11 @@ function loadMap() {
             </form>
         `;
 
-        popup   
-            .setContent(popupContent);
+        popup.setContent(popupContent);
 
-        marker.bindPopup(popup).openPopup();
-
+        marker
+            .bindPopup(popup)
+            .openPopup();
 
         // Submit the form and close the popup
         document.querySelector('#form').onsubmit = sendForm;
@@ -52,7 +52,8 @@ function loadMap() {
             formValue = document.querySelector('#incident').value;
             console.log(formValue);
 
-            // Send value to backend TODO
+            // Send value to backend
+            // TODO
 
             // Change color of marker based on form input
             var accidentIcon = L.divIcon({
