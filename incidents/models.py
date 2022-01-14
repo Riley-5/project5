@@ -16,3 +16,13 @@ class Point(models.Model):
 
     def __str__(self):
         return f"{self.user} | {self.value}"
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "latitude": self.latitude,
+            "longitude": self.longitude,
+            "value": self.value,
+            "date": self.date,
+            "user": str(self.user)
+        }

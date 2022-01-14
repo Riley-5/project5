@@ -1,6 +1,6 @@
 import json
 from curses.ascii import HT
-from sqlite3 import IntegrityError
+from sqlite3 import DataError, IntegrityError
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
@@ -65,8 +65,22 @@ def logout_view(request):
 
 @csrf_exempt
 def point(request):
+    # Not a POST request send an error
     if request.method != "POST":
         return JsonResponse({"error": "POST request required"}, status=400)
 
-    point = json.loads(request.body)
+    data = json.loads(request.body)
+
+    latitude = data.get("latitude")
+    longitude = data.get("longitude")
+    value = data.get("formValue")
+
+    point = Point(latitude = latitude, longitude = longitude, value = value, user = request.user)
+    point.save()
+
     return JsonResponse({"message": "Point recorded"}, status=201)
+
+@csrf_exempt
+def send_points(request):
+    points = Point.objects.all()
+    return JsonResponse([point.serialize() for point in points], safe=False)

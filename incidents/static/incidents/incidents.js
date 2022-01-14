@@ -12,6 +12,14 @@ function loadMap() {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
+    // Load points on map
+    fetch('/send_points')
+    .then(response => response.json())
+    .then(points => {
+        // Add points to map
+        // TODO
+    });
+
     // Click on map to add point
     map.on('click', addPoint);
 
@@ -49,7 +57,6 @@ function loadMap() {
 
         function sendForm(e) {
             e.preventDefault();
-            console.log(marker.getLatLng());
             formValue = document.querySelector('#incident').value;
 
             // Send value to backend
