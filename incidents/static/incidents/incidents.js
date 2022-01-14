@@ -74,5 +74,15 @@ function loadMap() {
             // Submit form close all popups
             map.closePopup();
         }
+
+        // Click on marker to remove it
+        marker.addEventListener('click', removeMarker);
+
+        function removeMarker() {
+            // Remove marker and data from backend
+            // TODO
+
+            map.removeLayer(marker);
+        }
     }
 }
