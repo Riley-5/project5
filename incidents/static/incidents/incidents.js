@@ -49,11 +49,28 @@ function loadMap() {
 
         function sendForm(e) {
             e.preventDefault();
+            console.log(marker.getLatLng());
             formValue = document.querySelector('#incident').value;
-            console.log(formValue);
 
             // Send value to backend
-            // TODO
+            fetch('/point', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    latitude: marker.getLatLng().lat,
+                    longitude: marker.getLatLng().lng,
+                    formValue: formValue
+                })
+            })
+            .then(response => response.json())
+            .then(point => {
+                console.log('Success:', point);
+            })
+            .catch((error) => {
+                console.log('Error:', error);
+            });
 
             // Change color of marker based on form input
             var accidentIcon = L.divIcon({
@@ -64,12 +81,18 @@ function loadMap() {
                 className: 'potholeIcon'
             });
 
-            if (formValue === 'accident') {
-                marker.setIcon(accidentIcon);
+            var icon
+
+            switch (formValue) {
+                case 'accident':
+                    icon = accidentIcon;
+                    break
+                case 'pothole':
+                    icon = potholeIcon;
+                    break
             }
-            else if (formValue === 'pothole') {
-                marker.setIcon(potholeIcon);
-            }
+
+            marker.setIcon(icon);
 
             // Submit form close all popups
             map.closePopup();

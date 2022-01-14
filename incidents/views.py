@@ -1,10 +1,12 @@
+import json
 from curses.ascii import HT
 from sqlite3 import IntegrityError
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
+from django.views.decorators.csrf import csrf_exempt
 from . models import *
 
 # Create your views here.
@@ -58,3 +60,13 @@ def register(request):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
+
+# API views
+
+@csrf_exempt
+def point(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required"}, status=400)
+
+    point = json.loads(request.body)
+    return JsonResponse({"message": "Point recorded"}, status=201)
