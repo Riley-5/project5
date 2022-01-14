@@ -17,7 +17,35 @@ function loadMap() {
     .then(response => response.json())
     .then(points => {
         // Add points to map
-        // TODO
+        points.forEach(function(point) {
+            var newMarker = L.marker()
+
+            newMarker
+                .setLatLng([point.latitude, point.longitude])
+                .addTo(map);
+
+            // Change color of marker based on form input
+            var accidentIcon = L.divIcon({
+                className: 'accidentIcon'
+            });
+
+            var potholeIcon = L.divIcon({
+                className: 'potholeIcon'
+            });
+
+            var icon
+
+            switch (point.value) {
+                case 'accident':
+                    icon = accidentIcon;
+                    break
+                case 'pothole':
+                    icon = potholeIcon;
+                    break
+            }
+
+            newMarker.setIcon(icon);
+        });
     });
 
     // Click on map to add point
@@ -100,19 +128,9 @@ function loadMap() {
             }
 
             marker.setIcon(icon);
-
+            
             // Submit form close all popups
             map.closePopup();
-        }
-
-        // Click on marker to remove it
-        marker.addEventListener('click', removeMarker);
-
-        function removeMarker() {
-            // Remove marker and data from backend
-            // TODO
-
-            map.removeLayer(marker);
         }
     }
 }
