@@ -1,9 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Generate map
-    loadMap();
-})
-
-function loadMap() {
     // Create map instance
     var map = L.map('map').setView([51.5072, 0.1276], 13);
 
@@ -25,26 +20,7 @@ function loadMap() {
                 .addTo(map);
 
             // Change color of marker based on form input
-            var accidentIcon = L.divIcon({
-                className: 'accidentIcon'
-            });
-
-            var potholeIcon = L.divIcon({
-                className: 'potholeIcon'
-            });
-
-            var icon
-
-            switch (point.value) {
-                case 'accident':
-                    icon = accidentIcon;
-                    break
-                case 'pothole':
-                    icon = potholeIcon;
-                    break
-            }
-
-            newMarker.setIcon(icon);
+            styleMarker(point.value, newMarker);
         });
     });
 
@@ -108,29 +84,34 @@ function loadMap() {
             });
 
             // Change color of marker based on form input
-            var accidentIcon = L.divIcon({
-                className: 'accidentIcon'
-            });
-
-            var potholeIcon = L.divIcon({
-                className: 'potholeIcon'
-            });
-
-            var icon
-
-            switch (formValue) {
-                case 'accident':
-                    icon = accidentIcon;
-                    break
-                case 'pothole':
-                    icon = potholeIcon;
-                    break
-            }
-
-            marker.setIcon(icon);
+            styleMarker(formValue, marker);
             
             // Submit form close all popups
             map.closePopup();
         }
     }
+});
+
+// Accepts a value from the form and a marker to style and style the value based on the form value
+function styleMarker(value, marker) {
+    var accidentIcon = L.divIcon({
+        className: 'accidentIcon'
+    });
+
+    var potholeIcon = L.divIcon({
+        className: 'potholeIcon'
+    });
+
+    var icon
+
+    switch (value) {
+        case 'accident':
+            icon = accidentIcon;
+            break
+        case 'pothole':
+            icon = potholeIcon;
+            break
+    }
+
+    marker.setIcon(icon);
 }
