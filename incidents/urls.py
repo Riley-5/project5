@@ -12,4 +12,5 @@ urlpatterns = [
     # API routes
     path('add_point', views.add_point, name="add_point"),
     path('send_points', views.send_points, name="send_points"),
+    path('remove_point/<int:pointID>', views.remove_point, name="remove_point"),
 ]

@@ -1,4 +1,5 @@
 import json
+from datetime import date
 from curses.ascii import HT
 from sqlite3 import DataError, IntegrityError
 from django.shortcuts import render
@@ -95,3 +96,18 @@ def send_points(request):
     # Get all active points from DB and send to frontend
     points = Point.objects.filter(active=True)
     return JsonResponse([point.serialize() for point in points], safe=False)
+
+@csrf_exempt
+def remove_point(request, pointID):
+    point = Point.objects.get(pk = pointID)
+
+    if request.method == "PUT":
+        data = json.loads(request.body)
+        if data.get("active") is not None:
+            point.active = data["active"]
+
+        point.closeDate = date.today()
+        point.save()
+        return HttpResponse(status=204)
+    else:
+        return JsonResponse({"error": "PUT request required"}, status=400)

@@ -24,6 +24,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Change color of marker based on form input
             styleMarker(point.value, marker);
+
+            // Click on point to remove marker
+            marker.on('click', function(e) {
+                fetch(`/remove_point/${point.id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        active: false
+                    })
+                });
+
+                e.target.remove();
+            });
         });
     });
 
@@ -83,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('Success:', point);
             })
             .catch((error) => {
-                console.log('Error:', error);
+                console.error('Error:', error);
             });
 
             // Change color of marker based on form input
