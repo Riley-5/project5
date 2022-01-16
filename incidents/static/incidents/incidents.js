@@ -43,10 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Click on map to add point
-    map.on('click', addPoint);
-
-    function addPoint(e) {
-
+    map.on('click', function(e) {
         // Add marker to map on click
         marker = L.marker();
             
@@ -75,9 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .openPopup();
 
         // Submit the form and close the popup
-        document.querySelector('#form').onsubmit = sendForm;
-
-        function sendForm(e) {
+        document.querySelector('#form').onsubmit = function(e) {
             e.preventDefault();
             formValue = document.querySelector('#incident').value;
 
@@ -106,8 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Submit form close all popups
             map.closePopup();
-        }
-    }
+        };
+    });
 });
 
 // Accepts a value from the form and a marker to style and style the value based on the form value
