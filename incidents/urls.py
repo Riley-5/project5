@@ -7,6 +7,7 @@ urlpatterns = [
     path('login', views.login_view, name="login"),
     path('logout', views.logout_view, name="logout"),
     path('register', views.register, name="register"),
+    path('log', views.log, name="log"),
 
     # API routes
     path('add_point', views.add_point, name="add_point"),

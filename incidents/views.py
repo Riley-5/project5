@@ -61,6 +61,14 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
 
+def log(request):
+    # Get all points that are NOT active
+    incidents = Point.objects.filter(active=False)
+
+    return render(request, "incidents/log.html", {
+        "incidents": incidents
+    })
+
 # API views
 
 @csrf_exempt
