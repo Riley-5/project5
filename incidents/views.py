@@ -64,17 +64,19 @@ def logout_view(request):
 # API views
 
 @csrf_exempt
-def point(request):
+def add_point(request):
     # Not a POST request send an error
     if request.method != "POST":
         return JsonResponse({"error": "POST request required"}, status=400)
 
+    # Get data from the fetch statement
     data = json.loads(request.body)
 
     latitude = data.get("latitude")
     longitude = data.get("longitude")
     value = data.get("formValue")
 
+    # Create and save point to DB
     point = Point(latitude = latitude, longitude = longitude, value = value, user = request.user)
     point.save()
 
@@ -82,5 +84,6 @@ def point(request):
 
 @csrf_exempt
 def send_points(request):
-    points = Point.objects.all()
+    # Get all active points from DB and send to frontend
+    points = Point.objects.filter(active=True)
     return JsonResponse([point.serialize() for point in points], safe=False)

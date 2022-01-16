@@ -2,6 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Create map instance
     var map = L.map('map').setView([51.5072, 0.1276], 13);
 
+    // Create a marker variable for later use
+    var marker;
+
     // Add basemap
     var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -13,14 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(points => {
         // Add points to map
         points.forEach(function(point) {
-            var newMarker = L.marker()
+            marker = L.marker()
 
-            newMarker
+            marker
                 .setLatLng([point.latitude, point.longitude])
                 .addTo(map);
 
             // Change color of marker based on form input
-            styleMarker(point.value, newMarker);
+            styleMarker(point.value, marker);
         });
     });
 
@@ -30,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function addPoint(e) {
 
         // Add marker to map on click
-        var marker = L.marker();
+        marker = L.marker();
             
         marker
             .setLatLng(e.latlng)
@@ -64,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
             formValue = document.querySelector('#incident').value;
 
             // Send value to backend
-            fetch('/point', {
+            fetch('/add_point', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -9,6 +9,6 @@ urlpatterns = [
     path('register', views.register, name="register"),
 
     # API routes
-    path('point', views.point, name="point"),
+    path('add_point', views.add_point, name="add_point"),
     path('send_points', views.send_points, name="send_points"),
 ]
