@@ -59,6 +59,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 <select id="incident">
                     <option value="pothole">Pothole</option>
                     <option value="accident">Accident</option>
+                    <option value="roadWorks">Road Works</option>
+                    <option value="robot">Broken Robot</option>
+                    <option value="burstPipe">Burst Pipe</option>
                 </select>
                 <br>
                 <button type="submit" value="submit">Submit</button>
@@ -107,22 +110,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Accepts a value from the form and a marker to style and style the value based on the form value
 function styleMarker(value, marker) {
-    var accidentIcon = L.divIcon({
-        className: 'accidentIcon'
+    var potholeIcon = L.icon({
+        iconUrl: 'static/incidents/pothole.png',
     });
 
-    var potholeIcon = L.divIcon({
-        className: 'potholeIcon'
+    var accidentIcon = L.icon({
+        iconUrl: 'static/incidents/accident.png',
     });
 
-    var icon
+    var roadWorksIcon = L.icon({
+        iconUrl: 'static/incidents/roadWorks.png',
+    });
+
+    var robotIcon = L.icon({
+        iconUrl: 'static/incidents/robot.png',
+    });
+
+    var burstPipeIcon = L.icon({
+        iconUrl: 'static/incidents/burstPipe.png',
+    });
+
+    var icon;
 
     switch (value) {
+        case 'pothole':
+            icon = potholeIcon;
+            break
         case 'accident':
             icon = accidentIcon;
             break
-        case 'pothole':
-            icon = potholeIcon;
+        case 'roadWorks':
+            icon = roadWorksIcon;
+            break
+        case 'robot':
+            icon = robotIcon;
+            break
+        case 'burstPipe':
+            icon = burstPipeIcon;
             break
     }
 
