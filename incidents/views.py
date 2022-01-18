@@ -64,7 +64,7 @@ def logout_view(request):
 
 def log(request):
     # Get all points that are NOT active
-    incidents = Point.objects.filter(active=False)
+    incidents = Point.objects.all()
 
     return render(request, "incidents/log.html", {
         "incidents": incidents

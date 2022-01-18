@@ -13,7 +13,11 @@
                     {{ incident.user }} {{ incident.value }} {{ incident.openDate }}
                 </td>
                 <td>
-                    {{ incident.user }} {{ incident.value }} {{ incident.closeDate }}
+                    {% if incident.closeDate is None %}
+                        Open
+                    {% else %}
+                        {{ incident.user }} {{ incident.value }} {{ incident.closeDate }}
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}
