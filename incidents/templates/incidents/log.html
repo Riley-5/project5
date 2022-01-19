@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block body %}
-    <table>
+    <table class="table-log">
         <tr>
             <th>Incident Opened</th>
             <th>Incident Closed</th>
@@ -10,13 +10,13 @@
         {% for incident in incidents %}
             <tr>
                 <td>
-                    {{ incident.user }} {{ incident.value }} {{ incident.openDate }}
+                    {{ incident.user }} | {{ incident.value }} | {{ incident.openDate }}
                 </td>
                 <td>
                     {% if incident.closeDate is None %}
                         Open
                     {% else %}
-                        {{ incident.user }} {{ incident.value }} {{ incident.closeDate }}
+                        {{ incident.user }} | {{ incident.value }} | {{ incident.closeDate }}
                     {% endif %}
                 </td>
             </tr>

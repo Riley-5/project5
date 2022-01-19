@@ -13,9 +13,13 @@
     </head>
     <body>
         <div class="nav-text">
-            Welcome to Street Incidents
-            {% if user.is_authenticated %} | {{ user.username }}
-            {% endif %}
+            <strong>
+               Welcome to Street Incidents
+                {% if user.is_authenticated %} 
+                    | {{ user.username }}
+                {% endif %} 
+            </strong>
+            
             <nav class="nav-bar">
                 <a class="btn btn-info btn-sm" href="{% url 'index' %}">Map</a>
                 <a class="btn btn-info btn-sm" href="{% url 'log' %}">Incident Log</a>
