@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Create map instance
-    var map = L.map('map').setView([51.5072, 0.1276], 13);
+    var map = L.map('map').setView([-25.416, 30.1041], 16);
 
     // Create a marker variable for later use
     var marker;
